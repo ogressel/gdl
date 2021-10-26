@@ -41,8 +41,11 @@ arrayIdentifier=keyword_set(arrayIdentifier)
   ndim=ret[0]
   type=ret[ndim+1]
 
-  if( n_elements(tagname) gt 0) then tmpstr=space+'"'+tagname+'": ' else tmpstr=''
-  n=n_elements(value)
+if( n_elements(tagname) gt 0) then begin
+   if (typename(tagname) eq "STRING") then tmpstr=space+'"'+tagname+'": ' else tmpstr=space+strtrim(tagname,2)+': '
+endif else tmpstr=''
+
+ n=n_elements(value)
 
  ;; unfortunately lists etc are seen as arrays by 'size', so:
   mytype=typename(value)
@@ -75,7 +78,7 @@ arrayIdentifier=keyword_set(arrayIdentifier)
            nn=value.Count()
            keys=value.Keys()
            for j=0,nn-1 do begin
-              tmpstr+=pretty_serialize(tagname=keys[j],value[j])
+              tmpstr+=pretty_serialize(tagname=keys[j],value[keys[j]])
               if (j lt nn-1) then tmpstr+=comma
            endfor
            tmpstr+=braceright & level--
@@ -86,7 +89,9 @@ arrayIdentifier=keyword_set(arrayIdentifier)
      10: BEGIN
         ind=PTR_VALID(value,/get)
         tmpstr+="<PtrHeapVar"+strtrim(ind,2)+">"
-     END 
+     END
+     1:  tmpstr+=strtrim(string(value,/print),2)
+     0:  tmpstr+="!NULL"
      ELSE: tmpstr+=strtrim(string(value),2)
   endcase
 
@@ -121,7 +126,7 @@ arrayIdentifier=keyword_set(arrayIdentifier)
                  nn=(value[i]).Count()
                  keys=(value[i]).Keys()
                  for j=0,nn-1 do begin
-                    tmpstr+=pretty_serialize(tagname=keys[j],(value[i])[j])
+                    tmpstr+=pretty_serialize(tagname=keys[j],(value[i])[keys[j]])
                     if (j lt nn-1) then tmpstr+=comma
                  endfor
                  tmpstr+=braceright & level--
@@ -132,6 +137,8 @@ arrayIdentifier=keyword_set(arrayIdentifier)
               ind=PTR_VALID(value[i],/get)
               tmpstr+="<PtrHeapVar"+strtrim(ind,2)+">"
            END 
+           1:  tmpstr+=strtrim(string(value[i],/print),2)
+           0:  tmpstr+="!NULL"
            ELSE: tmpstr+=strtrim(string(value[i]),2)
         endcase
         if (i lt nel-1) then tmpstr+=', '

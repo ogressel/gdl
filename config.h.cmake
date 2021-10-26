@@ -22,6 +22,7 @@
 #cmakedefine HAVE_LOCALE_H 1
 #cmakedefine HAVE_SBRK 1
 #cmakedefine HAVE_MALLINFO 1
+#cmakedefine HAVE_MALLINFO2 1
 #cmakedefine HAVE_MALLOC_H 1
 #cmakedefine HAVE_MALLOC_MALLOC_H 1
 #cmakedefine HAVE_MALLOC_ZONE_STATISTICS 1
@@ -30,6 +31,7 @@
 #cmakedefine HAVE_PLPLOT_WIDTH 1
 #cmakedefine PLPLOT_PRIVATE_NOT_HIDDEN 1
 #cmakedefine PLPLOT_HAS_PLCALLBACK
+#cmakedefine HAVE_QHULL 1
 #define _WCHAR_H_CPLUSPLUS_98_CONFORMANCE_ 1
 
 #ifndef HAVE_STDINT_H

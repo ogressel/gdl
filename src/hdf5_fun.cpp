@@ -587,15 +587,15 @@ hid_t
 
        elem_dtype = H5Tget_super(datatype);
        if (elem_dtype < 0) { string msg; e->Throw(hdf5_error_message(msg)); }
-       hdf5_type_guard elem_dtype_guard = hdf5_type_guard(elem_dtype);
 
     } else {
 
        elem_dtype = H5Tcopy(datatype);
        if (elem_dtype < 0) { string msg; e->Throw(hdf5_error_message(msg)); }
-       hdf5_type_guard elem_dtype_guard = hdf5_type_guard(elem_dtype);
 
     }
+
+    hdf5_type_guard elem_dtype_guard = hdf5_type_guard(elem_dtype);
 
     // determine the rank and dimension of the dataset
     int rank = H5Sget_simple_extent_ndims(h5s_id);
@@ -717,7 +717,7 @@ hid_t
   BaseGDL* h5d_read_fun(EnvT* e) {
 
     /* Jul 2021, Oliver Gressel <ogressel@gmail.com>
-       - add support for attributes of type 'H5T_ARRAY'
+       - add support for datasets of type 'H5T_ARRAY'
     */
 
     bool debug = false;
@@ -764,15 +764,15 @@ hid_t
 
        elem_dtype = H5Tget_super(datatype);
        if (elem_dtype < 0) { string msg; e->Throw(hdf5_error_message(msg)); }
-       hdf5_type_guard elem_dtype_guard = hdf5_type_guard(elem_dtype);
 
     } else {
 
        elem_dtype = H5Tcopy(datatype);
        if (elem_dtype < 0) { string msg; e->Throw(hdf5_error_message(msg)); }
-       hdf5_type_guard elem_dtype_guard = hdf5_type_guard(elem_dtype);
 
     }
+
+    hdf5_type_guard elem_dtype_guard = hdf5_type_guard(elem_dtype);
 
     // determine the rank and dimension of the dataset
     int rank = H5Sget_simple_extent_ndims(h5s_id);
